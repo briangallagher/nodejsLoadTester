@@ -4,6 +4,40 @@ var mbaasExpress = mbaasApi.mbaasExpress();
 var cors = require('cors');
 require('./lib/stats');
 
+var Prometheus = require("prometheus-client");
+
+var client = new Prometheus();
+
+var counter = client.newCounter({
+  namespace: "counter_test",
+  name: "elapsed_counters_total",
+  help: "The number of counter intervals that have elapsed."
+});
+
+var gauge = client.newGauge({
+  namespace: "counter_test",
+  name: "random_number",
+  help: "A random number we occasionally set."
+});
+
+setInterval(function () {
+  counter.increment({
+    period: "1sec" //period is a custom label name in this case with a value of "1sec"
+  });
+}, 1000);
+
+setInterval(function () {
+  counter.increment({
+    period: "2sec" //creating a new series with a period label of "2sec"
+  });
+}, 2000);
+
+setInterval(function () {
+  gauge.set({
+    period: "1sec"
+  }, Math.random() * 1000);
+}, 1000);
+
 // list the endpoints which you want to make securable here
 var securableEndpoints;
 securableEndpoints = [];
@@ -24,6 +58,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(mbaasExpress.fhmiddleware());
 
 app.use('/run', require('./lib/run.js')());
+
+app.get("/metrics2", client.metricsFunc());
 
 // Important that this is last!
 app.use(mbaasExpress.errorHandler());
