@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  generation: 23
+  labels:
+    run: nodeloadtest
+  name: nodeloadtest
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: nodeloadtest
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: nodeloadtest
+    spec:
+      containers:
+      - image: briangallagher/nodeloadtest:v12
+        imagePullPolicy: IfNotPresent
+        name: nodeloadtest
+        ports:
+        - containerPort: 8001
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
+        terminationMessagePath: /dev/termination-log
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+
+

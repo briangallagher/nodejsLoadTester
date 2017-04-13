@@ -42,3 +42,13 @@ autocannon -p 10 -c 1000 -a 100000 -m 'POST' -b "seconds=0.1" http://192.168.99.
 autocannon -p 10 -c 100 -a 100000 -m 'POST' -b "seconds=0.1" http://192.168.99.100:32628/run/io
 
 autocannon -p 2 -c 2 -a 10000  http://localhost:8001/run/io?seconds=3
+
+autocannon -p 1 -c 1 -a 100 http://192.168.99.100:31443/run/cpu?seconds=2
+
+curl -X POST -d "seconds=10" http://192.168.99.100:31045/run/cpu
+
+
+
+
+
+

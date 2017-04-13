@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: nodeloadtest
+  name: nodeloadtest
+  namespace: default
+  resourceVersion: "87947"
+  selfLink: /api/v1/namespaces/default/services/nodeloadtest
+  uid: eb828425-13b8-11e7-ba15-42010af001cd
+spec:
+  clusterIP: 10.3.241.96
+  ports:
+  - nodePort: 32069
+    port: 8001
+    protocol: TCP
+    targetPort: 8001
+  selector:
+    run: nodeloadtest
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 104.155.53.211

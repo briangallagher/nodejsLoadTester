@@ -2,7 +2,7 @@
 eval "$(docker-machine env default)"
 
 // Create docker image
-docker build -t briangallagher/nodeloadtest:v11 .
+docker build -t briangallagher/nodeloadtest:v12 .
 
 // Push to docker hub
 docker push briangallagher/nodeloadtest
@@ -10,6 +10,13 @@ docker push briangallagher/nodeloadtest
 // Push to Kuberntes
 
 // Run a container from my own Docker Hub account
-kubectl run nodeloadtest --image=briangallagher/nodeloadtest:v11 --port=8001
+kubectl run nodeloadtest --image=briangallagher/nodeloadtest:v12 --port=8001
+
 // expose the deployment
 kubectl expose deployment nodeloadtest --type="NodePort"
+kubectl expose deployment nodeloadtest --type="LoadBalancer"
+
+
+
+
+

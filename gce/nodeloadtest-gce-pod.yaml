@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubernetes.io/created-by: |
+      {"kind":"SerializedReference","apiVersion":"v1","reference":{"kind":"ReplicaSet","namespace":"default","name":"nodeloadtest-2251475986","uid":"e59f649a-13b8-11e7-ba15-42010af001cd","apiVersion":"extensions","resourceVersion":"1028158"}}
+    kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu request for container
+      nodeloadtest'
+  creationTimestamp: 2017-04-07T08:46:59Z
+  generateName: nodeloadtest-2251475986-
+  labels:
+    pod-template-hash: "2251475986"
+    run: nodeloadtest
+  name: nodeloadtest-2251475986-fdlp7
+  namespace: default
+  ownerReferences:
+  - apiVersion: extensions/v1beta1
+    controller: true
+    kind: ReplicaSet
+    name: nodeloadtest-2251475986
+    uid: e59f649a-13b8-11e7-ba15-42010af001cd
+  resourceVersion: "1031081"
+  selfLink: /api/v1/namespaces/default/pods/nodeloadtest-2251475986-fdlp7
+  uid: c3800431-1b6e-11e7-ba15-42010af001cd
+spec:
+  containers:
+  - image: briangallagher/nodeloadtest:v12
+    imagePullPolicy: IfNotPresent
+    name: nodeloadtest
+    ports:
+    - containerPort: 8001
+      protocol: TCP
+    resources:
+      requests:
+        cpu: 100m
+    terminationMessagePath: /dev/termination-log
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-14cg4
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  nodeName: gke-scaletest-default-pool-01ee1dcf-zknh
+  restartPolicy: Always
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  volumes:
+  - name: default-token-14cg4
+    secret:
+      defaultMode: 420
+      secretName: default-token-14cg4
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: 2017-04-07T08:53:11Z
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: 2017-04-07T09:26:33Z
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: 2017-04-07T08:53:11Z
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://ad6a7df4bb6c2c7588734978e47ece59ae7d0b8913c9f72254c3ffb579c7a765
+    image: briangallagher/nodeloadtest:v12
+    imageID: docker://sha256:ba9dfd1a4f77c184e75789e5213d691c10a8a5de5a83ebbfd446903fee25cc15
+    lastState: {}
+    name: nodeloadtest
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: 2017-04-07T09:26:32Z
+  hostIP: 10.132.0.2
+  phase: Running
+  podIP: 10.0.4.8
+  startTime: 2017-04-07T08:53:11Z
